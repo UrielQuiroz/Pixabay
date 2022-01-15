@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Error from './Error';
 
 
-const Formulario = () => {
+const Formulario = ({setBusqueda}) => {
 
     const [ termino, setTermino] = useState('');
     const [ error, setError ] = useState(false);
@@ -10,12 +10,16 @@ const Formulario = () => {
     const buscarImagenes = e => {
         e.preventDefault();
 
+        //Validar
         if (termino.trim() === '') {
             setError(true);
             return;
         }
 
         setError(false);
+
+        //Enviar el termino de búsqueda hacia el componente principal
+        setBusqueda(termino);
     }
 
     return (

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import Formulario from './components/Formulario';
+import ListadoImagenes from './components/ListadoImagenes';
 
 function App() {
   
   const [ busqueda, setBusqueda ] = useState('');
-
-
+  const [ imagenes, setImagenes ] = useState([]);
   
   useEffect(() => {
 
@@ -20,7 +20,7 @@ function App() {
         const rpta = await fetch(url);
         const result = await rpta.json();
 
-        console.log(result);
+        setImagenes(result.hits);
     }
 
     consultarApi();
@@ -30,10 +30,16 @@ function App() {
   return (
     <div className="container">
       <div className="jumbotron">
-        <p className="lead text-center">Buscador de imagenes</p>
-        <Formulario 
-              setBusqueda={setBusqueda} />
+            <p className="lead text-center">Buscador de imagenes</p>
+            <Formulario 
+                  setBusqueda={setBusqueda} />
       </div>
+
+      <div className='row justify-content-center'>
+          <ListadoImagenes
+                  imagenes={imagenes} />
+      </div>
+
     </div>
   );
 }
